@@ -12,3 +12,8 @@ fs_permissions = [
     { access = 'read', path = './broadcast/' },
     { access = 'read', path = './reports' },
 ]
+
+[fuzz]
+runs = 1000
+
+# For more Foundry configuration options, please refer to the Foundry Book: https://book.getfoundry.sh/

@@ -27,6 +27,7 @@ contract HelperConfig is CodeConstants, Script {
         uint256 subscriptionId;
         uint32 callbackGasLimit;
         address linkCA;
+        address account;
     }
 
     NetworkConfig public localNetworkConfig;
@@ -61,7 +62,8 @@ contract HelperConfig is CodeConstants, Script {
                 gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
                 callbackGasLimit: 500000, // 500,000 gas
                 subscriptionId: 0,
-                linkCA: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+                linkCA: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+                account: 0x779877A7B0D9E8603169DdbD7836e478b4624789 /* Some Sepolia Account - Placeholder*/
             });
     }
 
@@ -72,7 +74,7 @@ contract HelperConfig is CodeConstants, Script {
         }
 
         // Deploy mocks and such
-        vm.startBroadcast();
+        vm.startBroadcast(); // Config account param is technically redundant here since we're on anvil here
         VRFCoordinatorV2_5Mock vrfCoordinatorMock = new VRFCoordinatorV2_5Mock(
             MOCK_BASE_FEE,
             MOCK_GAS_PRICE_LINK,
@@ -88,7 +90,8 @@ contract HelperConfig is CodeConstants, Script {
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae, // doesn't matter for mock
             callbackGasLimit: 500000, // 500,000 gas
             subscriptionId: 0,
-            linkCA: address(linkToken)
+            linkCA: address(linkToken),
+            account: 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38 // Foundry's Default Sender; See forge-std/src/Base.sol:14
         });
 
         return localNetworkConfig;
